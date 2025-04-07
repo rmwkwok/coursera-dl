@@ -56,7 +56,7 @@ def _iter_modules(modules, class_name, path, ignored_formats, args):
 
         @property
         def lectures(self):
-            for (lecnum, (lecname, lecture)) in enumerate(self._lectures):
+            for (lecnum, (lecname, lecture, _)) in enumerate(self._lectures):
                 if lecture_filter and not re.search(lecture_filter, lecname):
                     logging.debug('Skipping b/c of lf: %s %s',
                                   lecture_filter, lecname)
