@@ -196,12 +196,17 @@ class CourseraExtractor(PlatformExtractor):
                         logging.info(
                             'Unsupported typename "%s" in lecture "%s" (lecture id "%s")',
                             typename, lecture.slug, lecture.id)
-                        continue
 
                     if links is None:
                         error_occurred = True
-                    elif links:
-                        lectures.append((lecture.slug, links))
+                    else:
+                        data = {
+                            'id': lecture.id,
+                            'type_name': lecture.type_name,
+                            'slug': lecture.slug,
+                            'name': lecture.name,
+                        }
+                        lectures.append((lecture.slug, links, data))
 
                 if lectures:
                     lessons.append((section.slug, lectures))
