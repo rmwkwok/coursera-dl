@@ -560,6 +560,11 @@ def expand_specializations(session, class_names):
                          ' classes: %s',
                          class_name, ' '.join(specialization.children))
 
+            # save ordered slugs to get course numbers.
+            with open('specialization.coursera-dl.jsonl', 'w') as f:
+                f.write(json.dumps({class_name: specialization.children}))
+                f.write('\n')
+
     return result
 
 
@@ -577,8 +582,12 @@ class SpecializationV1(object):
             logging.debug('Could not expand %s: %s', class_name, e)
             return None
 
-        return SpecializationV1(
-            [course['slug'] for course in dom['linked']['courses.v1']])
+        # dom['linked']['courses.v1'] does not sort courses by course numbers,
+        # but dom['elements'][0]['courseIds'] seems to be.
+        _id_to_slug = {c['id']: c['slug'] for c in dom['linked']['courses.v1']}
+        slugs = [_id_to_slug[_id] for _id in dom['elements'][0]['courseIds']]
+
+        return SpecializationV1(slugs)
 
 
 class CourseraOnDemand(object):
