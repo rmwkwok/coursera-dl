@@ -561,7 +561,7 @@ def expand_specializations(session, class_names):
                          class_name, ' '.join(specialization.children))
 
             # save ordered slugs to get course numbers.
-            with open('specialization.coursera-dl.jsonl', 'w') as f:
+            with open('specialization.coursera-dl.jsonl', 'a') as f:
                 f.write(json.dumps({class_name: specialization.children}))
                 f.write('\n')
 
