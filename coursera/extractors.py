@@ -209,10 +209,20 @@ class CourseraExtractor(PlatformExtractor):
                         lectures.append((lecture.slug, links, data))
 
                 if lectures:
-                    lessons.append((section.slug, lectures))
+                    data = {
+                        'id': section.id,
+                        'slug': section.slug,
+                        'name': section.name,
+                    }
+                    lessons.append((section.slug, lectures, data))
 
             if lessons:
-                modules.append((module.slug, lessons))
+                data = {
+                    'id': module.id,
+                    'slug': module.slug,
+                    'name': module.name,
+                }
+                modules.append((module.slug, lessons, data))
 
         if modules and reverse:
             modules.reverse()
