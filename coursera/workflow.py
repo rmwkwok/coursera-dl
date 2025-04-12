@@ -36,7 +36,7 @@ def _iter_modules(modules, class_name, path, ignored_formats, args):
         @property
         def sections(self):
             sections = self._module[1]
-            for (secnum, (section, lectures)) in enumerate(sections):
+            for (secnum, (section, lectures, _)) in enumerate(sections):
                 if section_filter and not re.search(section_filter, section):
                     logging.debug('Skipping b/c of sf: %s %s',
                                   section_filter, section)
